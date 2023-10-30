@@ -4,10 +4,12 @@ import java.util.Random;
 
 public class Interface {
 	private static Scanner entrada = new Scanner(System.in); // Variável scanner da calsse interface
-	private static int pontos = 0;
+	private static int pontos = 0; //É do tipo double por causa que divide em uma parte do código
 	private static int numero = 0;
 	private static int max = 10; //maximo
 	private static boolean gerarNumero = true;
+	private static int tentativas = 0;
+	private static int pontosAdicionados = 10; //Pontos adicionados. Começa com 10 e vai aumetando de 10 em 10.
 	
 	String[] game() {
 		/*
@@ -55,13 +57,17 @@ public class Interface {
 		
 		if (chute == numero) {
 			max += 10;
-			pontos += 1;
-			System.out.print("Você acertou!");
+			pontos += (pontosAdicionados - tentativas); //Quanto mais tentativas, menos adiciona.
+			System.out.print("Voce acertou!");
+			tentativas = 0;
 			gerarNumero = true;
+			pontosAdicionados += max; //A cada acerto, o número de pontos adicionados aumenta.
 		}else {
-			System.out.print("Você errou!");
+			System.out.print("Voce errou!");
 			gerarNumero = false;
 		}
+		
+		tentativas++; //Cada chamada para a função aumenta uma tentativa
 	}
 	
 	int points() {
